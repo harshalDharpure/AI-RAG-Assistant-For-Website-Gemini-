@@ -1,0 +1,17 @@
+AI RAG Assistant Documentation
+
+This is an example document that demonstrates how the RAG system can load local files.
+
+Key Features:
+- Automatic document loading from local folders
+- Support for multiple file formats (TXT, PDF, DOCX, MD)
+- Vector embedding and storage in Pinecone
+- Intelligent question answering using retrieved context
+
+Supported File Types:
+1. Text files (.txt)
+2. PDF documents (.pdf)
+3. Word documents (.docx)
+4. Markdown files (.md)
+
+The system will automatically process these documents and make them searchable through the AI assistant interface.

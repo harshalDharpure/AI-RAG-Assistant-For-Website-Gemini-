@@ -1,0 +1,70 @@
+PRODUCT USER MANUAL
+SmartHome Hub Pro - Version 2.0
+
+OVERVIEW
+The SmartHome Hub Pro is a centralized control system for all your smart home devices. It supports over 200+ device types and provides seamless automation capabilities.
+
+SPECIFICATIONS
+- Dimensions: 120mm x 80mm x 25mm
+- Weight: 200g
+- Power: 5V/2A USB-C
+- Connectivity: Wi-Fi 6, Bluetooth 5.0, Zigbee 3.0
+- Storage: 8GB internal + microSD slot
+- Operating Temperature: -10°C to +50°C
+
+INSTALLATION
+1. Unbox the device and power adapter
+2. Connect the USB-C cable to the hub
+3. Plug the adapter into a wall outlet
+4. Wait for the blue LED to start blinking
+5. Download the SmartHome app on your phone
+6. Follow the in-app setup wizard
+
+FIRST TIME SETUP
+- Create a SmartHome account
+- Connect hub to your Wi-Fi network
+- Choose your home location and timezone
+- Set up your first smart device
+- Configure basic automation rules
+
+CONNECTING DEVICES
+1. Open SmartHome app
+2. Tap "Add Device"
+3. Select device type from the list
+4. Follow device-specific instructions
+5. Device will appear in your dashboard
+
+AUTOMATION FEATURES
+- Time-based rules (turn lights on at sunset)
+- Motion detection triggers
+- Weather-based automation
+- Voice command integration
+- Geofencing (arrive home = turn on AC)
+
+TROUBLESHOOTING
+Problem: Hub won't connect to Wi-Fi
+Solution: Check password, move closer to router
+
+Problem: Device not responding
+Solution: Check device power, restart hub
+
+Problem: App can't find hub
+Solution: Ensure hub is powered, check Bluetooth
+
+MAINTENANCE
+- Clean hub monthly with dry cloth
+- Keep firmware updated
+- Backup settings regularly
+- Check for device compatibility updates
+
+SUPPORT
+- Email: support@smarthome.com
+- Phone: 1-800-SMART-HOME
+- Live Chat: Available 24/7
+- Knowledge Base: help.smarthome.com
+
+WARRANTY
+- 2-year limited warranty
+- Covers manufacturing defects
+- Does not cover physical damage
+- Return to authorized service center
