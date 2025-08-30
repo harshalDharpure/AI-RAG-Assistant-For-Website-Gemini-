@@ -1,149 +1,151 @@
-# AI-RAG-Assistant-For-Website-Gemini-
-## 🤖 Gemini Website RAG Assistant
+# 🤖 RAG Document Assistant
 
-An end‑to‑end Retrieval‑Augmented Generation (RAG) assistant that indexes website content (via sitemap) and local documents, stores embeddings in Pinecone, and answers questions using Google Gemini. Built with Streamlit and LangChain.
+A simple, intelligent document Q&A system built with Streamlit, Pinecone, and LangChain. Ask questions about your documents and get relevant answers with source citations.
 
-### ✨ Highlights
-- **True RAG pipeline**: retrieval → augmentation → generation
-- **Gemini‑powered** answers with cited sources
-- **Hybrid ingestion**: website sitemap + local files (`documents/`)
-- **Vector search** with Pinecone
-- **Streamlit UI** with progress states and context viewer
+## ✨ Features
 
----
+- **Document Processing**: Load PDF and TXT files from local folders
+- **Website Scraping**: Parse XML sitemaps to extract web content
+- **Smart Search**: Use semantic search to find relevant document chunks
+- **AI-Powered Answers**: Get concise answers based on retrieved context
+- **Source Citations**: Always see where your answers come from
+- **No External LLM**: Works offline with simple snippet-based responses
 
 ## 🚀 Quick Start
 
-### 1) Clone and install
-```bash
-pip install -r requirements.txt
+### Prerequisites
+- Python 3.8+
+- Pinecone API key
+- Hugging Face API key (for embeddings only)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd botrag
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\Activate.ps1  # Windows PowerShell
+   # or
+   source .venv/bin/activate    # Linux/Mac
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the application**
+   ```bash
+   streamlit run app.py
+   ```
+
+## 📖 How to Use
+
+### 1. Setup API Keys
+- Enter your **Pinecone API key** in the sidebar
+- Enter your **Hugging Face API key** in the sidebar
+
+### 2. Load Documents
+Choose your data source:
+
+**Option A: Local Files**
+- Select "Local folder" as data source
+- Put your PDF/TXT files in the `data/` folder
+- Click "Load data to Pinecone"
+
+**Option B: Website Sitemap**
+- Select "Sitemap URL" as data source
+- Update `WEBSITE_URL` in `constants.py` if needed
+- Click "Load data to Pinecone"
+
+### 3. Ask Questions
+- Type your question in the text input
+- Adjust the number of document chunks to retrieve (0-5)
+- Click "Search" to get your answer
+
+## 🏗️ Project Structure
+
 ```
-
-### 2) Configure environment
-Copy the template and add your keys:
-```bash
-copy env_example.txt .env
+botrag/
+├── app.py              # Main Streamlit application
+├── utils.py            # Core RAG functions
+├── constants.py        # Configuration settings
+├── requirements.txt    # Python dependencies
+├── data/              # Put your documents here
+└── README.md          # This file
 ```
-Required variables in `.env`:
-```bash
-GOOGLE_API_KEY=...
-HUGGINGFACE_API_KEY=...
-PINECONE_API_KEY=...
-# Optional overrides
-GEMINI_MODEL=gemini-1.5-flash
-TEMPERATURE=0.7
-MAX_TOKENS=1000
-```
-
-### 3) (Optional) Add local docs
-Place `.txt`, `.pdf`, `.docx`, `.md` in `documents/` (subfolders allowed).
-
-### 4) Run
-```bash
-streamlit run app.py
-```
-Enter your API keys in the sidebar → click “Load data to Pinecone” → ask questions.
-
----
-
-## 🧱 Architecture
-- **UI**: Streamlit (`app.py`)
-- **RAG Core**: LangChain utilities (`utils.py`)
-- **Vectors**: Pinecone (`langchain-pinecone`)
-- **Embeddings**: HuggingFace `all-MiniLM-L6-v2`
-- **LLM**: Google Gemini (`langchain-google-genai`)
-- **Ingestion**:
-  - Website via sitemap (`SitemapLoader`)
-  - Local files via loaders (TXT, PDF, DOCX, MD)
-
-Data flow:
-1. Load website + local docs → split into chunks
-2. Create embeddings → upsert to Pinecone
-3. Query: retrieve top‑k similar chunks
-4. Augment prompt with context → generate answer with Gemini
-5. Display answer + cited sources + expandable context
-
----
 
 ## ⚙️ Configuration
-Adjust in `constants.py`:
-```python
-WEBSITE_URL = "https://www.indiancounsellingservices.com/job-listing/sitemap-1.xml"
-DOCUMENT_SOURCES = {
-    "website_url": WEBSITE_URL,
-    "website_limit": 5,
-    "local_path": "./documents",
-    "file_types": [".txt", ".pdf", ".docx", ".md"]
-}
-```
-Recommended Gemini models: `gemini-1.5-flash` (fast, cost‑effective) or `gemini-1.5-pro` (higher quality).
 
----
+Edit `constants.py` to customize:
+- `WEBSITE_URL`: Sitemap URL for web scraping
+- `PINECONE_ENVIRONMENT`: Your Pinecone environment
+- `PINECONE_INDEX`: Your Pinecone index name
 
-## 🧪 Try These Questions
-- “What are the official working hours?”
-- “How many sick leave days do employees get per year?”
-- “How do I set up the SmartHome Hub for the first time?”
-- “List all automation features supported by the hub.”
-- “Summarize the onboarding journey from day 1 to 90 days.”
+## 🔧 How It Works
 
-More prompts in `documents/test_scenarios.txt`.
+1. **Document Loading**: PDFs/TXTs are loaded and split into chunks
+2. **Embedding Creation**: Text chunks are converted to vector embeddings
+3. **Vector Storage**: Embeddings are stored in Pinecone vector database
+4. **Query Processing**: Your question is converted to embeddings
+5. **Similarity Search**: Most relevant document chunks are retrieved
+6. **Answer Generation**: Relevant snippets are extracted and displayed
+7. **Source Citation**: Original document sources are shown
 
----
+## 📚 Supported File Types
 
-## 📁 Project Structure
-```
-Ragbot for Website/
-├─ app.py                # Streamlit app (Gemini UI)
-├─ utils.py              # RAG pipeline, loaders, LLM, Pinecone
-├─ constants.py          # URLs, index names, defaults
-├─ requirements.txt      # Dependencies
-├─ documents/            # Local docs to ingest
-│  ├─ company_policies.txt
-│  ├─ product_manual.txt
-│  ├─ faq.txt
-│  └─ training_materials.txt
-└─ env_example.txt       # .env template
-```
+- **PDF**: `.pdf` files
+- **Text**: `.txt` files
+- **Websites**: XML sitemaps
 
----
+## 🛠️ Dependencies
 
-## 🧰 Troubleshooting
-- Missing loaders (PDF/DOCX/MD)? Install:
-```bash
-pip install -U langchain-community pypdf docx2txt unstructured python-docx lxml bs4
-```
-- Gemini 404/model error → set a supported model in `.env`:
-```bash
-GEMINI_MODEL=gemini-1.5-flash
-```
-- Python 3.13 issues? Prefer 3.10/3.11 virtualenv:
-```bash
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-- Pinecone index
-  - Create index name from `constants.py` (default `ragbot`) in region `us-east-1`.
+- `streamlit`: Web interface
+- `pinecone`: Vector database
+- `langchain`: Document processing and embeddings
+- `sentence-transformers`: Text embeddings
+- `pypdf`: PDF parsing
+- `bs4`: Web scraping
 
----
+## 🤝 Contributing
 
-## 🔒 Notes
-- The app shows sources for transparency; always verify critical answers.
-- Respect robots.txt and target site policies when crawling sitemaps.
-- Set a `USER_AGENT` env var if needed for polite crawling.
-
----
-
-## 🗺️ Roadmap
-- Chat history and memory
-- Reranking for better retrieval quality
-- Streaming responses
-- Multi‑tenant/project profiles
-- Evaluations (RAGAS) and observability
-
----
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## 📝 License
-MIT — feel free to use and modify. Attribution appreciated.
 
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🆘 Troubleshooting
+
+**Common Issues:**
+
+- **Pinecone Connection Error**: Check your API key and environment settings
+- **No Documents Found**: Ensure you've loaded data before searching
+- **Import Errors**: Reinstall dependencies with `pip install -r requirements.txt`
+
+**Need Help?**
+- Check the error messages in the Streamlit interface
+- Verify your API keys are correct
+- Ensure your Pinecone index exists and has the right dimensions (384 for all-MiniLM-L6-v2)
+
+## 🎯 Future Enhancements
+
+- [ ] Add support for more file types (DOCX, CSV, etc.)
+- [ ] Implement conversation memory
+- [ ] Add document upload interface
+- [ ] Support for multiple Pinecone indexes
+- [ ] Export search results
+- [ ] User authentication
+
+---
+
+**Built with ❤️ using Streamlit, Pinecone, and LangChain**
