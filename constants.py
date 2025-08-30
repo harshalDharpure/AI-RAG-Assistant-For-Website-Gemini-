@@ -1,0 +1,5 @@
+# WEBSITE_URL="https://www.decode.com/wp-sitemap-posts-post-1.xml"
+# WEBSITE_URL="https://geekflare.com/wp-sitemap-posts-post-1.xml"
+WEBSITE_URL="https://www.indiancounsellingservices.com/job-listing/sitemap-1.xml"
+PINECONE_ENVIRONMENT="us-east-1"
+PINECONE_INDEX="ragbot"
